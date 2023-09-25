@@ -1,0 +1,36 @@
+Song:
+    title :string
+    artists :string[]
+    duration :float
+    filepath :string
+
+playlist:
+    
+    songs: Song[]
+    
+    addSong(Song)->void
+    removeSong(SOng)->void
+    displaySongs()->void
+
+player:
+    currentTime: float
+
+    play()
+
+song= SOng()
+
+myList = Playlist()
+myList.addSong(song)
+
+player = PLayer()
+player.play(myList)
+
+    def play(myList):
+        for s in mylist.songs:
+            while currentTime!==s.duration:
+                currentTime += 1
+                print("-"*currentTime)
+                
+
+
+    
