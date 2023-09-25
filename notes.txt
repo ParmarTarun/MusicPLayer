@@ -11,6 +11,7 @@ playlist:
     addSong(Song)->void
     removeSong(SOng)->void
     displaySongs()->void
+    shuffle()->void
 
 player:
     currentTime: float
@@ -30,7 +31,7 @@ player.play(myList)
             while currentTime!==s.duration:
                 currentTime += 1
                 print("-"*currentTime)
-                
+
 
 
     
