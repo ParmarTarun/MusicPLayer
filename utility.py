@@ -1,3 +1,4 @@
+from testData import songsData
 from Song import Song
 
 menu = {
@@ -6,11 +7,20 @@ menu = {
 }
 
 
+def getDefaultSongs() -> list[Song]:
+    songs: list[Song] = []
+    for song in songsData:
+        mySong = Song(**song)
+        songs.append(mySong)
+    return songs
+
+
 def separator() -> None:
     print("-"*20)
 
 
 def getUserChoice(options: dict[int, str], optionTitle: str = "") -> int:
+    """"""
     separator()
     print("Select an option", end=" ")
     if (optionTitle != ""):
