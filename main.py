@@ -1,38 +1,40 @@
+import sys
+
 from Player import Player
 from Song import Song
 from Playlist import Playlist
-from utility import getUserChoice, validatePlaylistName, selectPlaylist
-import sys
+
+from playlistManagement import *
+from utility import *
 
 menu = {
     1: "Create Playlist",
-    2: "Manage Playlist",  # 1. Add song, 2. Remvove Song
-    3: "Play Playlist",
+    2: "Manage Playlist",
+    # 3: "Play Playlist",
     0: "Exit"
 }
 
 managePlaylistMenu = {
-    1: "Add song",
-    2: "Remove song",
-    3: "Return to Main Menu",
-    0: "Exit"
+    1: "Display Songs",
+    2: "Add song",
+    3: "Remove song",
 }
 
 
-def managePlaylist() -> None:
-    while True:
-        choice = getUserChoice(managePlaylistMenu, "Manage Playlist menu")
-        if choice == 1:
-            print('in 1')
-        elif choice == 2:
-            print('in 2')
-        elif choice == 3:
-            break
-        elif choice == 0:
-            sys.exit()
+def performPlaylistManagement(playlist: Playlist) -> None:
+
+    choice = getUserChoice(managePlaylistMenu, f"menu for {playlist.name}")
+    if choice == 1:
+        performDisplaySongs(playlist)
+    if choice == 2:
+        performAddSong(playlist)
+    elif choice == 3:
+        performRmoveSong(playlist)
+    else:
+        return None
 
 
-def performCreatePlaylist():
+def performCreatePlaylist() -> None:
     name = input("Enter name for the Playlist: ")
     exists = validatePlaylistName(name)
     if not exists:
@@ -40,6 +42,7 @@ def performCreatePlaylist():
         print(f"Playlist {playlist.name} created!")
 
 
+# generateDummyData()
 print("Welcome to the world of music")
 while True:
     choice = getUserChoice(menu, "Main Menu")
@@ -47,8 +50,9 @@ while True:
         performCreatePlaylist()
 
     elif choice == 2:
-        playlist = selectPlaylist()
-        # managePlaylist()
+        playlist = getPlaylistFromUser()
+        if (playlist):
+            performPlaylistManagement(playlist)
 
     elif (choice == 0):
         break
