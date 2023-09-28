@@ -1,10 +1,6 @@
 from testData import songsData
 from Song import Song
-
-menu = {
-    1: "Checkout default Songs",
-    0: "Exit"
-}
+from Playlist import Playlist
 
 
 def getDefaultSongs() -> list[Song]:
@@ -20,7 +16,7 @@ def separator() -> None:
 
 
 def getUserChoice(options: dict[int, str], optionTitle: str = "") -> int:
-    """"""
+    """ Docstring """
     separator()
     print("Select an option", end=" ")
     if (optionTitle != ""):
@@ -28,14 +24,26 @@ def getUserChoice(options: dict[int, str], optionTitle: str = "") -> int:
     print(":")
     separator()
     for opt in options:
-        print(opt, ":", menu[opt])
+        print(opt, ":", options[opt])
     while True:
         try:
             inp = int(input("Your Choice: "))
-            if (inp not in menu.keys()):
+            if (inp not in options.keys()):
                 raise Exception("Invalid input")
-            if (inp == 0):
-                return -1
             return inp
         except:
             print("Invalid input, try again!")
+
+def validatePlaylistName(name) -> bool:
+    for d in Playlist.playlists:
+        if d['name'].lower() == name.lower():
+            print("Playlist with that name already exists, Try again!")
+            return True
+    return False
+
+def selectPlaylist() -> object:
+    choice = getUserChoice({i+1: d['name'] for i, d in enumerate(Playlist.playlists)} \
+                            | {00: "Return to previous menu", 0: "Exit"}, " Playlists")
+    print(choice)
+    
+    return

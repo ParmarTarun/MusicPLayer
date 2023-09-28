@@ -1,3 +1,5 @@
 class Playlist:
-    def __init__(self) -> None:
-        self.test = ""
+    playlists = []
+    def __init__(self, name: str) -> None:
+        self.name = name
+        Playlist.playlists.append({'object': self, 'name': name})

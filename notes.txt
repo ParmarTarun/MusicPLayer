@@ -4,26 +4,23 @@ Song:
     duration :float
     filepath :string
 
-playlist:
-    
+Playlist:
     songs: Song[]
-    
     addSong(Song)->void
-    removeSong(SOng)->void
+    removeSong(Song)->void
     displaySongs()->void
     shuffle()->void
 
-player:
+Player:
     currentTime: float
-
     play()
 
-song= SOng()
+song= Song()
 
 myList = Playlist()
-myList.addSong(song)
+myList.addSong(Song)
 
-player = PLayer()
+player = Player()
 player.play(myList)
 
     def play(myList):

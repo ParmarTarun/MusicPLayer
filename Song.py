@@ -4,3 +4,4 @@ class Song:
         self.artists = artists
         self.duration = duration
         self.filepath = filepath
+
