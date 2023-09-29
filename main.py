@@ -3,14 +3,13 @@ import sys
 from Player import Player
 from Song import Song
 from Playlist import Playlist
-
 from playlistManagement import *
 from utility import *
 
 menu = {
     1: "Create Playlist",
     2: "Manage Playlist",
-    # 3: "Play Playlist",
+    3: "Play a Song",
     0: "Exit"
 }
 
@@ -19,6 +18,11 @@ managePlaylistMenu = {
     2: "Add song",
     3: "Remove song",
 }
+
+
+def performPlaySong(song: Song):
+    player = Player()
+    player.playSong(song)
 
 
 def performPlaylistManagement(playlist: Playlist) -> None:
@@ -53,6 +57,11 @@ while True:
         playlist = getPlaylistFromUser()
         if (playlist):
             performPlaylistManagement(playlist)
+
+    elif choice == 3:
+        song = getSongFromUser()
+        if (song):
+            performPlaySong(song)
 
     elif (choice == 0):
         break
