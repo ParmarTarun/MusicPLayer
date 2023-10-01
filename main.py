@@ -10,6 +10,7 @@ menu = {
     1: "Create Playlist",
     2: "Manage Playlist",
     3: "Play a Song",
+    4: "Play a Playlist",
     0: "Exit"
 }
 
@@ -18,6 +19,11 @@ managePlaylistMenu = {
     2: "Add song",
     3: "Remove song",
 }
+
+
+def performPlayPlaylist(playlist: Playlist):
+    player = Player()
+    player.playPlaylist(playlist)
 
 
 def performPlaySong(song: Song):
@@ -62,6 +68,11 @@ while True:
         song = getSongFromUser()
         if (song):
             performPlaySong(song)
+
+    elif choice == 4:
+        playlist = getPlaylistFromUser()
+        if (playlist):
+            performPlayPlaylist(playlist)
 
     elif (choice == 0):
         break

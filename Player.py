@@ -17,9 +17,10 @@ class Player:
         self.currentDuration = 0
         self.currentSong = None
         self.__handlers = []
-        self.options = {"p": ["pause", self.pause],
-                        "r": ["resume", self.resume],
-                        "s": ["stop", self.stop]
+        self.options = {"p": ["pause", self.pauseSong],
+                        "r": ["resume", self.resumeSong],
+                        "s": ["stop", self.stopSong],
+                        "n": ["next", self.nextSong]
                         }
         self.pause = False
         self.stop = False
@@ -30,28 +31,36 @@ class Player:
                 option, self.options[option][1], triggers=["enter"])
             self.__handlers.append(handler)
 
-    def pause(self):
+    def pauseSong(self):
         self.pause = True
 
-    def resume(self):
+    def resumeSong(self):
         pass
 
-    def stop(self):
-        self.stop = True
-        self.currentDuration = 0
-        self.currentSong = None
-        for x in self.__handlers:
-            keyboard.remove_word_listener(x)
+    def nextSong(self):
+        self.currentDuration = self.currentSong.duration
+
+    def stopSong(self):
+        if (not self.pause):
+            self.stop = True
+            self.currentDuration = 0
+            self.currentSong = None
+            for _ in self.__handlers:
+                item = self.__handlers.pop()
+                try:
+                    keyboard.remove_word_listener(item)
+                except Exception:
+                    pass
 
     def play(self, song: Song):
+        self.currentSong = song
+        self.currentDuration = 0
         while (song.duration != self.currentDuration):
             if (self.pause):
-                inp = input("\nSong is paused..., press r to resume\n")
+                inp = input("\nSong is paused... press r to resume\n")
                 if (inp == 'r'):
                     self.pause = False
-
             elif (self.stop):
-                self.stop = False
                 break
             else:
                 self.currentDuration += 0.1
@@ -59,12 +68,10 @@ class Player:
                 Player.bar.update(self.currentDuration)
 
     def playSong(self, song: Song):
-        self.currentSong = song
-        self.currentDuration = 0
+        self.__enablePlaybackOptions()
+
         separator()
         print("Playing:", song.title, "by", ', '.join(song.artists))
-
-        self.__enablePlaybackOptions()
         print("Playback options:", end=" ")
         for key in self.options.keys():
             print(f'{key}:{self.options[key][0]}', end=" | ")
@@ -73,3 +80,20 @@ class Player:
         Player.bar.max_value = song.duration
 
         self.play(song)
+
+    def playPlaylist(self, playlist: Playlist):
+        self.__enablePlaybackOptions()
+        for song in playlist.songs:
+            separator()
+            print("Playing:", song.title, "by", ', '.join(song.artists))
+
+            print("Playback options:", end=" ")
+            for key in self.options.keys():
+                print(f'{key}:{self.options[key][0]}', end=" | ")
+            print()
+
+            Player.bar.max_value = song.duration
+
+            self.play(song)
+            if (self.stop):
+                break

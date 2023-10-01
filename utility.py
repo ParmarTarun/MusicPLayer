@@ -5,8 +5,11 @@ from typing import Literal
 
 
 def generateDummyData():
-    Playlist("playlist1")
-    Playlist("playlist2")
+    songs = getDefaultSongs()
+    pl1 = Playlist("playlist1")
+    # pl2 = Playlist("playlist2")
+    pl1.addSong(songs[0])
+    pl1.addSong(songs[1])
 
 
 def getDefaultSongs() -> list[Song]:
