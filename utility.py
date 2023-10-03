@@ -5,6 +5,7 @@ from typing import Literal
 
 
 def generateDummyData():
+    """generate dummy data, needed while development"""
     songs = getDefaultSongs()
     pl1 = Playlist("playlist1")
     # pl2 = Playlist("playlist2")
@@ -13,6 +14,7 @@ def generateDummyData():
 
 
 def getDefaultSongs() -> list[Song]:
+    """returns all the songs present in testData"""
     songs: list[Song] = []
     for song in songsData:
         mySong = Song(**song)
@@ -21,6 +23,7 @@ def getDefaultSongs() -> list[Song]:
 
 
 def lastTwoOptions(menu: dict[int, str]):
+    """adds extra options of return to main and previous menu"""
 
     # option for adding return to previous menu
     # prevMenuOption = len(menu.keys()) + 1
@@ -33,11 +36,12 @@ def lastTwoOptions(menu: dict[int, str]):
 
 
 def separator() -> None:
+    """prints a line to separate out different things on terminal"""
     print("-"*20)
 
 
 def getUserChoice(options: dict[int, str], optionTitle: str = "") -> int:
-    """ Docstring """
+    """general function to display passed menu, validate the input"""
     separator()
     print("Select an option", end=" ")
     if (optionTitle != ""):
@@ -58,6 +62,7 @@ def getUserChoice(options: dict[int, str], optionTitle: str = "") -> int:
 
 
 def validatePlaylistName(name) -> bool:
+    """checks for uniqueness of playlist names"""
     for d in Playlist.getAllPLaylists():
         if d['name'].lower() == name.lower():
             separator()
@@ -67,6 +72,7 @@ def validatePlaylistName(name) -> bool:
 
 
 def getPlaylistFromUser() -> Playlist | Literal[False]:
+    """displays all the playlist and takes user input for playlist option"""
     playlists = Playlist.getAllPLaylists()
     if (len(playlists) == 0):
         separator()
@@ -88,6 +94,7 @@ def getPlaylistFromUser() -> Playlist | Literal[False]:
 
 
 def getSongFromUser() -> Song | Literal[False]:
+    """displays all the songs and takes user input for songs option"""
     songs = getDefaultSongs()
     if (len(songs) == 0):
         separator()
@@ -109,6 +116,7 @@ def getSongFromUser() -> Song | Literal[False]:
 
 
 def getPlaylistsSongsFromUser(playlist: Playlist) -> Song | Literal[False]:
+    """displays songs from a playlist and takes user input for songs option"""
     songs = playlist.songs
     if (len(songs) == 0):
         separator()

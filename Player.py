@@ -8,7 +8,7 @@ import keyboard
 
 
 class Player:
-
+    """Player class responsible for playing songs/playlists"""
     widgets = ['Progress:', progressbar.Bar(
         '#'), progressbar.Timer(format='%(elapsed)s')]
     bar = progressbar.ProgressBar(widgets=widgets)
@@ -26,21 +26,26 @@ class Player:
         self.stop = False
 
     def __enablePlaybackOptions(self):
+        """Sreates different handlers for playback options"""
         for option in self.options.keys():
             handler = keyboard.add_word_listener(
                 option, self.options[option][1], triggers=["enter"])
             self.__handlers.append(handler)
 
     def pauseSong(self):
+        """call back function for pause handler"""
         self.pause = True
 
     def resumeSong(self):
+        """call back function for resume handler"""
         pass
 
     def nextSong(self):
+        """call back function for next handler"""
         self.currentDuration = self.currentSong.duration
 
     def stopSong(self):
+        """call back function for stop handler"""
         if (not self.pause):
             self.stop = True
             self.currentDuration = 0
@@ -53,6 +58,7 @@ class Player:
                     pass
 
     def play(self, song: Song):
+        """Core function responsible for playing song"""
         self.currentSong = song
         self.currentDuration = 0
         while (song.duration != self.currentDuration):
@@ -68,6 +74,7 @@ class Player:
                 Player.bar.update(self.currentDuration)
 
     def playSong(self, song: Song):
+        """Driver function to play a single song"""
         self.__enablePlaybackOptions()
 
         separator()
@@ -82,6 +89,7 @@ class Player:
         self.play(song)
 
     def playPlaylist(self, playlist: Playlist):
+        """Driver function to play a playlist"""
         self.__enablePlaybackOptions()
         for song in playlist.songs:
             separator()

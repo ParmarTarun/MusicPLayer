@@ -3,6 +3,7 @@ from utility import *
 
 
 def performAddSong(playlist: Playlist) -> None:
+    """Driver function for adding song to playlist"""
     song = getSongFromUser()
     if (song):
         if (song.title in playlist.getAllSongsName()):
@@ -14,6 +15,7 @@ def performAddSong(playlist: Playlist) -> None:
 
 
 def performRmoveSong(playlist: Playlist) -> None:
+    """Driver function for removing song to playlist"""
     if (len(playlist.songs) > 0):
         song = getPlaylistsSongsFromUser(playlist)
         if (song):
@@ -27,6 +29,7 @@ def performRmoveSong(playlist: Playlist) -> None:
 
 
 def performDisplaySongs(playlist: Playlist):
+    """Driver function for displayin songs in playlist"""
     songs = playlist.songs
     if (len(songs) > 0):
         separator()
