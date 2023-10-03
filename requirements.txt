@@ -1,0 +1,4 @@
+keyboard==0.13.5
+progressbar2==4.2.0
+python-utils==3.8.1
+typing_extensions==4.8.0
